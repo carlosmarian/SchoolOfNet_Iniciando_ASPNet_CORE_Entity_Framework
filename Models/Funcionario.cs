@@ -2,10 +2,9 @@ namespace NetCOREEntityFramework.Models
 {
     public class Funcionario
     {
-        int id {get;set;}
-
-        string nome {get;set;}
-
-        float salario{get;set;}
+        public int Id {get;set;}
+        public string Nome {get;set;}
+        public float Salario{get;set;}
+        public string Cpf {get;set;}
     }
 }

@@ -29,3 +29,22 @@ Neste arquivos estarão todas as conficurações do banco.
 
 CREATE DATABASE `efprojeto` /*!40100 COLLATE 'latin1_general_cs' */;
 
+Para migrações usa o "dotnet ef"
+  dotnet ef --help
+
+criar uma migração:
+ dotnet ef migrations add migracao_000_Funcionario
+ OBS: Lembranco que os atribod devem começar com letra maiuscula e ser publico.
+      La no ApplicationDBContext a definição do mapeamento da classe deve serm publica e ter os get e set
+
+Executando as migrações pendentes:
+  dotnet ef database update
+Para editar a tabela, criar o atributo na classe e gera uma nova migração
+  dotnet ef migrations add migracao_001_Funcionario
+
+Depois sobe a migração para o banco;
+  dotnet ef database update
+
+=================
+OBS: ATENÇÃO, SEMPRE QUE MODIFICAR A TABELA OS DADOS DA TABELA SERÃO PERDIDOS.
+=================
