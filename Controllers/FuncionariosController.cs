@@ -39,7 +39,12 @@ namespace NetCOREEntityFramework.Controllers
             //Busca o primeiro registro com o mesmo ID do recebido como parâmetro.
             Funcionario funcionario = database.Funcionarios.First(registro => registro.Id == id);
 
-            return View("Cadastrar", funcionario);
+            database.Funcionarios.Remove(funcionario);
+
+            //Confirma a remoção
+            database.SaveChanges();
+            //Após DELETAR vai para a index.
+            return RedirectToAction("Index");
         }
 
 
@@ -56,7 +61,7 @@ namespace NetCOREEntityFramework.Controllers
 
             }
 
-            //Confirma a adição.
+            //Confirma a adição/edição.
             database.SaveChanges();
 
             //Após salvar vai para a index.
