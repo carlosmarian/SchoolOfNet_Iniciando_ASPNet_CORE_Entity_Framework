@@ -25,10 +25,37 @@ namespace NetCOREEntityFramework.Controllers
             return View(funcionarios);
         }
 
+        public IActionResult Editar(int id){
+            //OBS: o parametro ID vem do que foi definido lá no Startus.sc no padrão de rota, que tem o ID como optional
+
+            //Busca o primeiro registro com o mesmo ID do recebido como parâmetro.
+            Funcionario funcionario = database.Funcionarios.First(registro => registro.Id == id);
+
+            return View("Cadastrar", funcionario);
+        }
+
+        public IActionResult Deletar(int id){
+
+            //Busca o primeiro registro com o mesmo ID do recebido como parâmetro.
+            Funcionario funcionario = database.Funcionarios.First(registro => registro.Id == id);
+
+            return View("Cadastrar", funcionario);
+        }
+
+
         [HttpPost]
         public IActionResult Salvar(Funcionario funcionario){
-            //Solicita a adição do item;
-            database.Funcionarios.Add(funcionario);
+            if(funcionario.Id == 0){
+                //Solicita a adição do item;
+                database.Funcionarios.Add(funcionario);
+            }else{
+                Funcionario funcionarioDoBanco = database.Funcionarios.First(registro => registro.Id == funcionario.Id);
+                funcionarioDoBanco.Nome = funcionario.Nome;
+                funcionarioDoBanco.Salario = funcionario.Salario;
+                funcionarioDoBanco.Cpf = funcionario.Cpf;
+
+            }
+
             //Confirma a adição.
             database.SaveChanges();
 
