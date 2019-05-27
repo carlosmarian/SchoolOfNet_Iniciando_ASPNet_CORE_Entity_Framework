@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using NetCOREEntityFramework.Models;
 using NetCOREEntityFramework.Database;
@@ -16,6 +17,13 @@ namespace NetCOREEntityFramework.Controllers
         public IActionResult Cadastrar(){
             return View();
         }
+        public IActionResult Index(){
+            //Obtendo a lista de funcionarios
+            var funcionarios = database.Funcionarios.ToList();
+
+            //Passando os atributos para a view
+            return View(funcionarios);
+        }
 
         [HttpPost]
         public IActionResult Salvar(Funcionario funcionario){
@@ -23,7 +31,9 @@ namespace NetCOREEntityFramework.Controllers
             database.Funcionarios.Add(funcionario);
             //Confirma a adição.
             database.SaveChanges();
-            return Content("Funcionário salvo");
+
+            //Após salvar vai para a index.
+            return RedirectToAction("Index");
         }
     }
 }
